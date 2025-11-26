@@ -1,0 +1,41 @@
+<Project Sdk="Uno.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+
+    <OutputType>Exe</OutputType>
+    <UnoSingleProject>true</UnoSingleProject>
+
+    <!-- Display name -->
+    <ApplicationTitle>uno_csharp_platform</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>com.companyname.uno</ApplicationId>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <!-- Package Publisher -->
+    <ApplicationPublisher>uno_csharp_platform</ApplicationPublisher>
+    <!-- Package Description -->
+    <Description>uno_csharp_platform powered by Uno Platform.</Description>
+
+    <!--
+      UnoFeatures are used to quickly add and manage features enabled for your app.
+      https://aka.platform.uno/singleproject-features
+    -->
+    <UnoFeatures>
+      Material;
+      Dsp;
+      Hosting;
+      Toolkit;
+      Logging;
+      Mvvm;
+      Configuration;
+      HttpKiota;
+      Serialization;
+      Localization;
+      Navigation;
+      ThemeService;
+      SkiaRenderer;
+    </UnoFeatures>
+  </PropertyGroup>
+
+</Project>
