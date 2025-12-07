@@ -129,7 +129,7 @@
                        HorizontalAlignment="Stretch" 
                        BorderThickness="0">
                     <StackPanel>
-                        <TextBlock Text="🏠" 
+                        <TextBlock Text="" 
                                   FontSize="24" 
                                   HorizontalAlignment="Center"/>
                         <TextBlock Text="Trang chủ" 
@@ -144,7 +144,7 @@
                        BorderThickness="0">
                     <StackPanel>
                         <Grid>
-                            <TextBlock Text="🛒" 
+                            <TextBlock Text="" 
                                       FontSize="24" 
                                       HorizontalAlignment="Center"/>
                             <Border Background="Red" 
@@ -171,7 +171,7 @@
                        HorizontalAlignment="Stretch" 
                        BorderThickness="0">
                     <StackPanel>
-                        <TextBlock Text="👤" 
+                        <TextBlock Text="" 
                                   FontSize="24" 
                                   HorizontalAlignment="Center"/>
                         <TextBlock Text="Tài khoản" 
