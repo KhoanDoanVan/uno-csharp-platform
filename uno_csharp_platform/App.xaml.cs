@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Uno.Resizetizer;
+using uno_csharp_platform.Presentation.ViewModels;
+using uno_csharp_platform.Presentation.Views;
 
 namespace uno_csharp_platform;
 
@@ -38,22 +41,6 @@ public partial class App : Application
                         // Default filters for core Uno Platform namespaces
                         .CoreLogLevel(LogLevel.Warning);
 
-                    // Uno Platform namespace filter groups
-                    // Uncomment individual methods to see more detailed logging
-                    //// Generic Xaml events
-                    //logBuilder.XamlLogLevel(LogLevel.Debug);
-                    //// Layout specific messages
-                    //logBuilder.XamlLayoutLogLevel(LogLevel.Debug);
-                    //// Storage messages
-                    //logBuilder.StorageLogLevel(LogLevel.Debug);
-                    //// Binding related messages
-                    //logBuilder.XamlBindingLogLevel(LogLevel.Debug);
-                    //// Binder memory references tracking
-                    //logBuilder.BinderMemoryReferenceLogLevel(LogLevel.Debug);
-                    //// DevServer and HotReload related
-                    //logBuilder.HotReloadCoreLogLevel(LogLevel.Information);
-                    //// Debug JS interop
-                    //logBuilder.WebAssemblyLogLevel(LogLevel.Debug);
 
                 }, enableUnoLogging: true)
                 .UseConfiguration(configure: configBuilder =>
@@ -91,16 +78,21 @@ public partial class App : Application
     {
         views.Register(
             new ViewMap(ViewModel: typeof(ShellViewModel)),
-            new ViewMap<MainPage, MainViewModel>(),
-            new DataViewMap<SecondPage, SecondViewModel, Entity>()
+
+            // AUTH
+            new ViewMap<LoginPage, LoginViewModel>()
         );
 
         routes.Register(
-            new RouteMap("", View: views.FindByViewModel<ShellViewModel>(),
-                Nested:
-                [
-                    new ("Main", View: views.FindByViewModel<MainViewModel>(), IsDefault:true),
-                    new ("Second", View: views.FindByViewModel<SecondViewModel>()),
+            new RouteMap(
+                "", 
+                View: views.FindByViewModel<ShellViewModel>(),
+                Nested: [
+                    new (
+                        "Login", 
+                        View: views.FindByViewModel<LoginViewModel>(),
+                        IsDefault: true
+                    ),
                 ]
             )
         );

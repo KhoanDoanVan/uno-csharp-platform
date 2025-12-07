@@ -1,19 +1,13 @@
 namespace uno_csharp_platform.Models;
 
 
-public record Product
+public class Product
 {
-    public int ProductId { get; set; }
-    public int CategoryId { get; set; }
-    public int SupplierId { get; set; }
-    public string ProductName { get; set; } = string.Empty;
-    public string Barcode { get; set; } = string.Empty;
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
-    public string Unit { get; set; } = "pcs";
-    public DateTime CreatedAt { get; set; }
-
-    // Navigation properties
-    public string? CategoryName { get; set; }
-    public int? StockQuantity { get; set; }
-    public string? ImageUrl { get; set; }
+    public string ImageUrl { get; set; } = string.Empty;
+    public string Category { get; set; } = string.Empty;
+    public int Stock { get; set; }
 }

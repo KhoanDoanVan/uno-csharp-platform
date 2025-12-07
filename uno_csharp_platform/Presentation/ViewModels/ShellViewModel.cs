@@ -1,4 +1,4 @@
-namespace uno_csharp_platform.Presentation;
+namespace uno_csharp_platform.Presentation.ViewModels;
 
 public class ShellViewModel
 {
