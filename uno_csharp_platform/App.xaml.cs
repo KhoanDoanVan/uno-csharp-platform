@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Uno.Resizetizer;
 using uno_csharp_platform.Presentation.ViewModels;
 using uno_csharp_platform.Presentation.Views;
+using uno_csharp_platform.Data;
 
 namespace uno_csharp_platform;
 
@@ -61,6 +62,8 @@ public partial class App : Application
                 {
                     // TODO: Register your services
                     //services.AddSingleton<IMyService, MyService>();
+                    // using var db = new AppDbContext();
+                    // db.Database.EnsureCreated();
                 })
                 .UseNavigation(RegisterRoutes)
             );
@@ -80,7 +83,8 @@ public partial class App : Application
             new ViewMap(ViewModel: typeof(ShellViewModel)),
 
             // AUTH
-            new ViewMap<LoginPage, LoginViewModel>()
+            new ViewMap<LoginPage, LoginViewModel>(),
+            new ViewMap<RegisterPage, RegisterViewModel>()
         );
 
         routes.Register(
@@ -93,6 +97,7 @@ public partial class App : Application
                         View: views.FindByViewModel<LoginViewModel>(),
                         IsDefault: true
                     ),
+                    new ("Register", View: views.FindByViewModel<RegisterViewModel>()),
                 ]
             )
         );

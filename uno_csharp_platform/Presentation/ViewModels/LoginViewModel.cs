@@ -45,7 +45,7 @@ public partial class LoginViewModel : ObservableObject
             // Mock authentication - replace with actual auth service
             if (Username == "demo" && Password == "123456")
             {
-                // await _navigator.NavigateViewModelAsync<HomeViewModel>(this);
+                await _navigator.NavigateViewModelAsync<HomeViewModel>(this);
             }
             else
             {
@@ -65,6 +65,6 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private async Task NavigateToRegisterAsync()
     {
-        // await _navigator.NavigateViewModelAsync<RegisterViewModel>(this);
+        await _navigator.NavigateViewModelAsync<RegisterViewModel>(this);
     }
 }
