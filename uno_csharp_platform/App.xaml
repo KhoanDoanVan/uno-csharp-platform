@@ -21,6 +21,13 @@
         </utum:MaterialToolkitTheme>
       </ResourceDictionary.MergedDictionaries>
 
+      <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+      <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+      <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+      <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+      <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
+      <converters:ZeroToCollapsedConverter x:Key="ZeroToCollapsedConverter"/>
+
       <!-- Add resources here -->
 
     </ResourceDictionary>
