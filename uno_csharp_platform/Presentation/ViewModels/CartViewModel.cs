@@ -9,7 +9,7 @@ namespace uno_csharp_platform.Presentation.ViewModels;
 public partial class CartViewModel : ObservableObject
 {
     private readonly INavigator _navigator;
-    // private readonly ICartService _cartService;
+    private readonly ICartService _cartService;
 
     [ObservableProperty]
     private ObservableCollection<CartItem> _cartItems = new();
@@ -24,12 +24,12 @@ public partial class CartViewModel : ObservableObject
     private bool _isEmpty = true;
 
     public CartViewModel(
-        INavigator navigator
-        // ICartService cartService
+        INavigator navigator,
+        ICartService cartService
     )
     {
         _navigator = navigator;
-        // _cartService = cartService;
+        _cartService = cartService;
     }
 
     public async Task LoadCartAsync()
@@ -37,8 +37,8 @@ public partial class CartViewModel : ObservableObject
         IsLoading = true;
         try
         {
-            // var items = await _cartService.GetAllItemsAsync();
-            // CartItems = new ObservableCollection<CartItem>(items);
+            var items = await _cartService.GetAllItemsAsync();
+            CartItems = new ObservableCollection<CartItem>(items);
             await UpdateTotalAsync();
             IsEmpty = CartItems.Count == 0;
         }
@@ -56,7 +56,7 @@ public partial class CartViewModel : ObservableObject
     private async Task IncreaseQuantityAsync(CartItem item)
     {
         item.Quantity++;
-        // await _cartService.UpdateItemAsync(item);
+        await _cartService.UpdateItemAsync(item);
         await UpdateTotalAsync();
     }
 
@@ -66,7 +66,7 @@ public partial class CartViewModel : ObservableObject
         if (item.Quantity > 1)
         {
             item.Quantity--;
-            // await _cartService.UpdateItemAsync(item);
+            await _cartService.UpdateItemAsync(item);
             await UpdateTotalAsync();
         }
     }
@@ -74,7 +74,7 @@ public partial class CartViewModel : ObservableObject
     [RelayCommand]
     private async Task RemoveItemAsync(CartItem item)
     {
-        // await _cartService.RemoveItemAsync(item.Id);
+        await _cartService.RemoveItemAsync(item.Id);
         CartItems.Remove(item);
         await UpdateTotalAsync();
         IsEmpty = CartItems.Count == 0;
@@ -83,7 +83,7 @@ public partial class CartViewModel : ObservableObject
     [RelayCommand]
     private async Task ClearCartAsync()
     {
-        // await _cartService.ClearCartAsync();
+        await _cartService.ClearCartAsync();
         CartItems.Clear();
         await UpdateTotalAsync();
         IsEmpty = true;
@@ -93,7 +93,7 @@ public partial class CartViewModel : ObservableObject
     private async Task ProceedToCheckoutAsync()
     {
         if (CartItems.Count == 0) return;
-        // await _navigator.NavigateViewModelAsync<CheckoutViewModel>(this);
+        await _navigator.NavigateViewModelAsync<CheckoutViewModel>(this);
     }
 
     [RelayCommand]
@@ -104,7 +104,7 @@ public partial class CartViewModel : ObservableObject
 
     private async Task UpdateTotalAsync()
     {
-        // TotalPrice = await _cartService.GetTotalPriceAsync();
+        TotalPrice = await _cartService.GetTotalPriceAsync();
         OnPropertyChanged(nameof(CartItems));
     }
 }

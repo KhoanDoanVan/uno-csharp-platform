@@ -3,6 +3,7 @@ using Uno.Resizetizer;
 using uno_csharp_platform.Presentation.ViewModels;
 using uno_csharp_platform.Presentation.Views;
 using uno_csharp_platform.Data;
+using uno_csharp_platform.Services;
 
 namespace uno_csharp_platform;
 
@@ -68,7 +69,9 @@ public partial class App : Application
                     
                     // using var db = new AppDbContext();
                     // db.Database.EnsureCreated();
-
+                    services.AddSingleton<ICartService, CartService>();
+                    services.AddSingleton<IProductService, ProductService>();
+                    services.AddSingleton<IOrderService, OrderService>();
                 })
                 .UseNavigation(RegisterRoutes)
             );

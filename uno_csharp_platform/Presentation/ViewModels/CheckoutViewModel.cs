@@ -8,8 +8,8 @@ namespace uno_csharp_platform.Presentation.ViewModels;
 public partial class CheckoutViewModel : ObservableObject
 {
     private readonly INavigator _navigator;
-    // private readonly ICartService _cartService;
-    // private readonly IOrderService _orderService;
+    private readonly ICartService _cartService;
+    private readonly IOrderService _orderService;
 
     [ObservableProperty]
     private string _customerName = string.Empty;
@@ -30,19 +30,19 @@ public partial class CheckoutViewModel : ObservableObject
     private string _errorMessage = string.Empty;
 
     public CheckoutViewModel(
-        INavigator navigator
-        // ICartService cartService,
-        // IOrderService orderService
+        INavigator navigator,
+        ICartService cartService,
+        IOrderService orderService
     )
     {
         _navigator = navigator;
-        // _cartService = cartService;
-        // _orderService = orderService;
+        _cartService = cartService;
+        _orderService = orderService;
     }
 
     public async Task LoadDataAsync()
     {
-        // TotalAmount = await _cartService.GetTotalPriceAsync();
+        TotalAmount = await _cartService.GetTotalPriceAsync();
     }
 
     [RelayCommand]
@@ -59,47 +59,47 @@ public partial class CheckoutViewModel : ObservableObject
 
         try
         {
-            // // Get cart items
-            // var cartItems = await _cartService.GetAllItemsAsync();
+            // Get cart items
+            var cartItems = await _cartService.GetAllItemsAsync();
 
-            // if (cartItems.Count == 0)
-            // {
-            //     ErrorMessage = "Giỏ hàng trống";
-            //     return;
-            // }
+            if (cartItems.Count == 0)
+            {
+                ErrorMessage = "Giỏ hàng trống";
+                return;
+            }
 
-            // // Create order model
-            // var order = new OrderModel
-            // {
-            //     CustomerName = CustomerName,
-            //     Address = Address,
-            //     PhoneNumber = PhoneNumber,
-            //     TotalAmount = TotalAmount,
-            //     Items = cartItems.Select(c => new OrderItem
-            //     {
-            //         ProductId = c.ProductId,
-            //         ProductName = c.ProductName,
-            //         Price = c.Price,
-            //         Quantity = c.Quantity,
-            //         Subtotal = c.Subtotal
-            //     }).ToList()
-            // };
+            // Create order model
+            var order = new OrderModel
+            {
+                CustomerName = CustomerName,
+                Address = Address,
+                PhoneNumber = PhoneNumber,
+                TotalAmount = TotalAmount,
+                Items = cartItems.Select(c => new OrderItem
+                {
+                    ProductId = c.ProductId,
+                    ProductName = c.ProductName,
+                    Price = c.Price,
+                    Quantity = c.Quantity,
+                    Subtotal = c.Subtotal
+                }).ToList()
+            };
 
-            // // Call API to create order
-            // var success = await _orderService.CreateOrderAsync(order);
+            // Call API to create order
+            var success = await _orderService.CreateOrderAsync(order);
 
-            // if (success)
-            // {
-            //     // Clear cart on success
-            //     await _cartService.ClearCartAsync();
+            if (success)
+            {
+                // Clear cart on success
+                await _cartService.ClearCartAsync();
 
-            //     // Navigate to success page or home
-            //     await _navigator.NavigateViewModelAsync<OrderSuccessViewModel>(this);
-            // }
-            // else
-            // {
-            //     ErrorMessage = "Đặt hàng thất bại. Vui lòng thử lại.";
-            // }
+                // Navigate to success page or home
+                await _navigator.NavigateViewModelAsync<OrderSuccessViewModel>(this);
+            }
+            else
+            {
+                ErrorMessage = "Đặt hàng thất bại. Vui lòng thử lại.";
+            }
         }
         catch (Exception ex)
         {

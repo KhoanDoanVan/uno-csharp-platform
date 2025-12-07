@@ -8,8 +8,8 @@ namespace uno_csharp_platform.Presentation.ViewModels;
 public partial class ProductDetailViewModel : ObservableObject
 {
     private readonly INavigator _navigator;
-    // private readonly IProductService _productService;
-    // private readonly ICartService _cartService;
+    private readonly IProductService _productService;
+    private readonly ICartService _cartService;
 
     [ObservableProperty]
     private Product? _product;
@@ -24,14 +24,14 @@ public partial class ProductDetailViewModel : ObservableObject
     private string _message = string.Empty;
 
     public ProductDetailViewModel(
-        INavigator navigator
-        // IProductService productService,
-        // ICartService cartService
+        INavigator navigator,
+        IProductService productService,
+        ICartService cartService
     )
     {
         _navigator = navigator;
-        // _productService = productService;
-        // _cartService = cartService;
+        _productService = productService;
+        _cartService = cartService;
     }
 
     public async Task LoadProductAsync(int productId)
@@ -39,7 +39,7 @@ public partial class ProductDetailViewModel : ObservableObject
         IsLoading = true;
         try
         {
-            // Product = await _productService.GetProductByIdAsync(productId);
+            Product = await _productService.GetProductByIdAsync(productId);
         }
         catch (Exception ex)
         {
@@ -85,7 +85,7 @@ public partial class ProductDetailViewModel : ObservableObject
                 ImageUrl = Product.ImageUrl
             };
 
-            // await _cartService.AddItemAsync(cartItem);
+            await _cartService.AddItemAsync(cartItem);
             Message = "Đã thêm vào giỏ hàng!";
             
             await Task.Delay(1500);
@@ -106,6 +106,6 @@ public partial class ProductDetailViewModel : ObservableObject
     [RelayCommand]
     private async Task NavigateToCartAsync()
     {
-        // await _navigator.NavigateViewModelAsync<CartViewModel>(this);
+        await _navigator.NavigateViewModelAsync<CartViewModel>(this);
     }
 }
