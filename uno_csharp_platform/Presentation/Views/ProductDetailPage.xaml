@@ -47,95 +47,102 @@
 
         <!-- Content -->
         <ScrollViewer Grid.Row="1">
-            <StackPanel Padding="20" 
-                       Visibility="{x:Bind ViewModel.Product, Mode=OneWay, Converter={StaticResource NullToCollapsedConverter}}">
-                
-                <Border CornerRadius="12" 
-                       Height="300" 
-                       Margin="0,0,0,20">
-                    <Image Source="{x:Bind ViewModel.Product.ImageUrl, Mode=OneWay}" 
-                          Stretch="UniformToFill"/>
-                </Border>
+            <Grid>
+                <!-- CONTENT -->
+                <StackPanel Padding="20"
+                            Visibility="{x:Bind ViewModel.Product, Mode=OneWay, Converter={StaticResource NullToCollapsedConverter}}">
 
-                <TextBlock Text="{x:Bind ViewModel.Product.Name, Mode=OneWay}" 
-                          FontSize="28" 
-                          FontWeight="Bold" 
-                          TextWrapping="Wrap" 
-                          Margin="0,0,0,10"/>
-
-                <TextBlock FontSize="32" 
-                          FontWeight="Bold" 
-                          Foreground="{ThemeResource SystemAccentColor}" 
-                          Margin="0,0,0,15">
-                    <Run Text="{x:Bind ViewModel.Product.Price, Mode=OneWay}"/>
-                    <Run Text="₫"/>
-                </TextBlock>
-
-                <TextBlock Text="Mô tả sản phẩm" 
-                          FontSize="18" 
-                          FontWeight="SemiBold" 
-                          Margin="0,0,0,10"/>
-
-                <TextBlock Text="{x:Bind ViewModel.Product.Description, Mode=OneWay}" 
-                          TextWrapping="Wrap" 
-                          Margin="0,0,0,20" 
-                          Opacity="0.7"/>
-
-                <StackPanel Orientation="Horizontal" 
-                           Margin="0,0,0,10">
-                    <TextBlock Text="Danh mục: " 
-                              FontWeight="SemiBold"/>
-                    <TextBlock Text="{x:Bind ViewModel.Product.Category, Mode=OneWay}"/>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" 
-                           Margin="0,0,0,20">
-                    <TextBlock Text="Tồn kho: " 
-                              FontWeight="SemiBold"/>
-                    <TextBlock Text="{x:Bind ViewModel.Product.Stock, Mode=OneWay}"/>
-                    <TextBlock Text=" sản phẩm"/>
-                </StackPanel>
-
-                <TextBlock Text="Số lượng:" 
-                          FontWeight="SemiBold" 
-                          Margin="0,0,0,10"/>
-
-                <StackPanel Orientation="Horizontal" 
-                           Spacing="15" 
-                           Margin="0,0,0,20">
-                    <Button Content="−" 
-                           Command="{x:Bind ViewModel.DecreaseQuantityCommand}" 
-                           Width="50" 
-                           Height="50" 
-                           FontSize="24"/>
-                    <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}" 
-                           BorderThickness="1" 
-                           CornerRadius="4" 
-                           Width="80" 
-                           Height="50">
-                        <TextBlock Text="{x:Bind ViewModel.Quantity, Mode=OneWay}" 
-                                  FontSize="24" 
-                                  HorizontalAlignment="Center" 
-                                  VerticalAlignment="Center"/>
+                    <Border CornerRadius="12"
+                            Height="300"
+                            Margin="0,0,0,20">
+                        <Image Source="{x:Bind ViewModel.Product.ImageUrl, Mode=OneWay}"
+                            Stretch="UniformToFill"/>
                     </Border>
-                    <Button Content="+" 
-                           Command="{x:Bind ViewModel.IncreaseQuantityCommand}" 
-                           Width="50" 
-                           Height="50" 
-                           FontSize="24"/>
+
+                    <TextBlock Text="{x:Bind ViewModel.Product.Name, Mode=OneWay}"
+                            FontSize="28"
+                            FontWeight="Bold"
+                            TextWrapping="Wrap"
+                            Margin="0,0,0,10"/>
+
+                    <TextBlock FontSize="32"
+                            FontWeight="Bold"
+                            Foreground="{ThemeResource SystemAccentColor}"
+                            Margin="0,0,0,15">
+                        <Run Text="{x:Bind ViewModel.Product.Price, Mode=OneWay}"/>
+                        <Run Text="₫"/>
+                    </TextBlock>
+
+                    <TextBlock Text="Mô tả sản phẩm"
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,10"/>
+
+                    <TextBlock Text="{x:Bind ViewModel.Product.Description, Mode=OneWay}"
+                            TextWrapping="Wrap"
+                            Margin="0,0,0,20"
+                            Opacity="0.7"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,10">
+                        <TextBlock Text="Danh mục: "
+                                FontWeight="SemiBold"/>
+                        <TextBlock Text="{x:Bind ViewModel.Product.Category, Mode=OneWay}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,20">
+                        <TextBlock Text="Tồn kho: "
+                                FontWeight="SemiBold"/>
+                        <TextBlock Text="{x:Bind ViewModel.Product.Stock, Mode=OneWay}"/>
+                        <TextBlock Text=" sản phẩm"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Số lượng:"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,10"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="15"
+                                Margin="0,0,0,20">
+                        <Button Content="−"
+                                Command="{x:Bind ViewModel.DecreaseQuantityCommand}"
+                                Width="50"
+                                Height="50"
+                                FontSize="24"/>
+
+                        <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Width="80"
+                                Height="50">
+                            <TextBlock Text="{x:Bind ViewModel.Quantity, Mode=OneWay}"
+                                    FontSize="24"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                        </Border>
+
+                        <Button Content="+"
+                                Command="{x:Bind ViewModel.IncreaseQuantityCommand}"
+                                Width="50"
+                                Height="50"
+                                FontSize="24"/>
+                    </StackPanel>
+
+                    <TextBlock Text="{x:Bind ViewModel.Message, Mode=OneWay}"
+                            Foreground="Green"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,10"
+                            Visibility="{x:Bind ViewModel.Message, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"/>
                 </StackPanel>
 
-                <TextBlock Text="{x:Bind ViewModel.Message, Mode=OneWay}" 
-                          Foreground="Green" 
-                          FontWeight="SemiBold" 
-                          Margin="0,0,0,10" 
-                          Visibility="{x:Bind ViewModel.Message, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"/>
-            </StackPanel>
-
-            <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" 
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Center"/>
+                <!-- LOADING OVERLAY -->
+                <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+            </Grid>
         </ScrollViewer>
+
 
         <!-- Footer Button -->
         <Button Grid.Row="2" 

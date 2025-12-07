@@ -22,6 +22,9 @@ public partial class App : Application
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
+
+        SQLitePCL.Batteries_V2.Init();
+
         var builder = this.CreateBuilder(args)
             // Add navigation support for toolkit controls such as TabBar and NavigationView
             .UseToolkitNavigation()
@@ -62,8 +65,10 @@ public partial class App : Application
                 {
                     // TODO: Register your services
                     //services.AddSingleton<IMyService, MyService>();
+                    
                     // using var db = new AppDbContext();
                     // db.Database.EnsureCreated();
+
                 })
                 .UseNavigation(RegisterRoutes)
             );
@@ -75,7 +80,20 @@ public partial class App : Application
                 MainWindow.SetWindowIcon();
 
         Host = await builder.NavigateAsync<Shell>();
+
+        await InitializeDatabaseAsync();
     }
+
+
+    private static async Task InitializeDatabaseAsync()
+    {
+        await Task.Run(() =>
+        {
+            using var db = new AppDbContext();
+            db.Database.EnsureCreated();
+        });
+    }
+
 
     private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
     {
@@ -84,7 +102,17 @@ public partial class App : Application
 
             // AUTH
             new ViewMap<LoginPage, LoginViewModel>(),
-            new ViewMap<RegisterPage, RegisterViewModel>()
+            new ViewMap<RegisterPage, RegisterViewModel>(),
+
+            // MAIN FLOW
+            new ViewMap<HomePage, HomeViewModel>(),
+            new ViewMap<ProfilePage, ProfileViewModel>(),
+            
+            // SHOP FLOW
+            new ViewMap<ProductDetailPage, ProductDetailViewModel>(),
+            new ViewMap<CartPage, CartViewModel>(),
+            new ViewMap<CheckoutPage, CheckoutViewModel>(),
+            new ViewMap<OrderSuccessPage, OrderSuccessViewModel>()
         );
 
         routes.Register(
@@ -98,6 +126,12 @@ public partial class App : Application
                         IsDefault: true
                     ),
                     new ("Register", View: views.FindByViewModel<RegisterViewModel>()),
+                    new ("Home", View: views.FindByViewModel<HomeViewModel>()),
+                    new ("Profile", View: views.FindByViewModel<ProfileViewModel>()),
+                    new ("ProductDetail", View: views.FindByViewModel<ProductDetailViewModel>()),
+                    new ("Cart", View: views.FindByViewModel<CartViewModel>()),
+                    new ("Checkout", View: views.FindByViewModel<CheckoutViewModel>()),
+                    new ("OrderSuccess", View: views.FindByViewModel<OrderSuccessViewModel>())
                 ]
             )
         );
